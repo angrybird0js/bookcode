@@ -1,0 +1,26 @@
+<script>
+    // script 영역만 작성됨
+    window.onload function {
+
+        var nick = prompt("별명을 입력하시오");
+        var input = document.getElementById("input");
+        input.focus();
+
+        var socket = new WebSocket("ws://" + location.host + "/");
+
+        socket.onmessage = function(event) {
+            var msg = event.data;
+            var node = document.createTextNode(msg);
+            var div = document.createElement("div");
+            div.appendChild(node);
+            document.body.insertBefore(div, input);
+            input.scrollIntoView();
+        }
+
+        input.onchange = function() {
+            var msg = nick + ": " + input.value;
+            socket.send(msg);
+            input.value = "";
+        }
+    };
+</script>
