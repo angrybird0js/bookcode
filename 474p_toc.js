@@ -16,17 +16,17 @@ onload(function() {
     if (document.querySelectorAll)
         headings = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
     else
-        headings = findHeadings(document, body, []);
+        headings = findHeadings(document.body, []);
 
     //내장함수
-    function findHeadings(root, sects) {
-        for (var c = root.firstChild; c != null; c = c.nextSibling) {
+    function findHeadings(root, sects) { // 위 headings 에서 호출함              
+        for (var c = root.firstChild; c != null; c = c.nextSibling) { //전체 태그 순회              
             if (c.nodeType !==1) continue;
             if (c.tagName.length == 2 && c.tagName.charAt(0) == "H")
                 sects.push(c);
             else findHeadings(c, sects);
         }
-        return sects;
+        return sects; //매개변수에 추가하여 반환 가능
     }
 
     var sectionNumbers = [0,0,0,0,0,0];
@@ -36,10 +36,10 @@ onload(function() {
 
         if (heading.parentNode == toc) continue;
 
-        var level = parseInt(heading.tagName.charAt(1));
+        var level = parseInt(heading.tagName.charAt(1)); //공백포함 위치, H1~6의 숫자
         if (isNaN(level) || level < 1 ||level > 6) continue;
 
-        sectionNumbers[level-1]++;
+        sectionNumbers[level-1]++; // 인덱스 0에서 시작
         for (var i = level; i<6; i++) sectionNumber[i] = 0;
 
         var sectionNumber = sectionNumbers.slice(0,level).join(".");
