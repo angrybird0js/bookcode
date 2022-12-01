@@ -39,10 +39,10 @@ onload(function() {
         var level = parseInt(heading.tagName.charAt(1)); //공백포함 위치, H1~6의 숫자
         if (isNaN(level) || level < 1 ||level > 6) continue;
 
-        sectionNumbers[level-1]++; // 인덱스 0에서 시작
-        for (var i = level; i<6; i++) sectionNumber[i] = 0;
+        sectionNumbers[level-1]++; // 인덱스 0에서 시작, 5 6 7 8증가 카운터 
+        for (var i = level; i<6; i++) sectionNumbers[i] = 0; // 시작점을 해당레벨에서부터, 초기화기
 
-        var sectionNumber = sectionNumbers.slice(0,level).join(".");
+        var sectionNumber = sectionNumbers.slice(0,level).join("."); //마지막 인덱스 제외 1.1.1.
         var span = document.createElement("span");
         span.className = "TOCSectNum";
         span.innerHTML = sectionNumber;
